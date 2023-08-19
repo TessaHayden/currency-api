@@ -1,50 +1,36 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
-import CurrencyService from "./currency-service";
 
 function getExchangeRate(currency) {
-  let promise = CurrencyService.getExchangeRate(currency);
-  promise.then(
-    function (currencyArray) {
-      printElements(currencyArray);
-      conversionFunc();
-    },
-    function (errorArray) {
-      printError(errorArray);
+  let request = new XMLHttpRequest();
+  const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`;
+  request.addEventListener("loadend", function () {
+    const response = JSON.parse(this.responseText);
+    if (this.status === 200) {
+      printElements(response, currency);
     }
-  );
+  });
+  request.open("GET", url, true);
+  request.send();
 }
-
-function printElements() {
-  let input = "input";
+function printElements(response) {
+  let input = document.querySelector('#currency-type').value;
+  input.toUpperCase();
+  let amount = parseInt(document.querySelector('#usd-amount').value);
   document.querySelector(
-    "#showResponse"
-  ).innerText = `Here is the exchange rate from USD to ${input}`;
-}
-function printError(error) {
-  document.querySelector(
-    "#showResponse"
-  ).innerText = `There was an error accessing the weather data for ${error[2]}: ${error[0].status} ${error[0].statusText}: ${error[1].message}`;
-}
-function conversionFunc(promise) {
-  if (promise.result === "success") {
-    console.log("working");
-  } else {
-    const htmlOutput = promise.conversion_rates
-      .map(
-        (el) =>
-          `<li>${el.conversion_rates}\n<p>-- ${el.conversion_rates} --</p></li>`
-      )
-      .join("");
-    const list = document.getElementById("currency-abb");
-    list.innerHTML = htmlOutput;
+    "#currency-abb"
+  ).innerText = `Here is the exchange rate from ${amount} USD to ${input}`;
+  console.log(response.conversion_rates);
+  if (response) {
+    const abbreviation = response.conversion_rates.input;
+    console.log(abbreviation);
   }
 }
+
 function handleFormSubmission(event) {
   event.preventDefault();
   const currencyType = document.querySelector("#currency-type").value;
-  document.querySelector("#currency-type").value = null;
   getExchangeRate(currencyType);
 }
 
