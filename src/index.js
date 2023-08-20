@@ -15,16 +15,44 @@ function getExchangeRate(currency) {
   request.send();
 }
 function printElements(response) {
-  let input = document.querySelector('#currency-type').value;
-  input.toUpperCase();
-  let amount = parseInt(document.querySelector('#usd-amount').value);
-  document.querySelector(
-    "#currency-abb"
-  ).innerText = `Here is the exchange rate from ${amount} USD to ${input}`;
-  console.log(response.conversion_rates);
-  if (response) {
-    const abbreviation = response.conversion_rates.input;
-    console.log(abbreviation);
+  let input = document.querySelector("#currency-type").value.toUpperCase();
+  let amount = parseInt(document.querySelector("#usd-amount").value);
+  if (input === "AOA") {
+    let abbreviation = response.conversion_rates.AOA;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
+  } else if (input === "AED") {
+    let abbreviation = response.conversion_rates.AED;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
+  } else if (input === "AFN") {
+    let abbreviation = response.conversion_rates.AFN;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from  $${amount} USD to ${input}: ${conversion}`;
+  } else if (input === "ALL") {
+    let abbreviation = response.conversion_rates.ALL;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
+  } else if (input === "AMD") {
+    let abbreviation = response.conversion_rates.AMD;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
+  } else if (input === "ANG") {
+    let abbreviation = response.conversion_rates.ANG;
+    let conversion = `${amount}` * abbreviation;
+    document.querySelector(
+      "#showResponse"
+    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
   }
 }
 
