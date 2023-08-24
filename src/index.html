@@ -7,7 +7,7 @@
 <body>
   <div class="container">
     <h1>Currency Exchange Rates:</h1>
-    <p>This app will pull data from a currency API and check what the exchange rate from USD to a currency from the list below:</p>
+    <p>This app will pull data from a currency API and check what the exchange rate from USD to a currency of your choice:</p>
     <pre id="currency-abb">
         AED
         AFN
@@ -17,10 +17,18 @@
         AOA
     </pre>
     <form>
-      <label for="currency-type">Enter the type of currency to check:</label>
-      <input id="currency-type" type="text" name="currency-type">
+      <!-- <label for="currency-type">Enter the type of currency to check:</label>
+      <input id="currency-type" type="text" name="currency-type"> -->
+      <select name="currency-type" id="currency-type">
+        <option value="AED">AOA</option>
+        <option value="AFN">AFN</option>
+        <option value="ALL">ALL</option>
+        <option value="AMD">AMD</option>
+        <option value="ANG">ANG</option>
+        <option value="AOA">AOA</option>
+      </select>
       <label for="usd-amount">Enter the USD amount:</label>
-      <input id="usd-amount" type="text" name="usd-amount">
+      <input id="usd-amount" type="number" name="usd-amount">
       <button type="submit" class="btn-success" id="currency-submit">Run check</button>
     </form>
     <p id="showResponse"></p>

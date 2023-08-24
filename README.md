@@ -24,29 +24,11 @@ A currency exchange rate app.
 Use one of the listed currency types to compare to the USD.  You can choose how many USD to use for the exchange rate.
 
 ### Setup:
-
+- _obtain API key at https://v6.exchangerate-api.com/_
 - _Clone Repository to your desktop_
-- _Run command "npm init -y" in root directory_
-- _Install dependencies:_ 
->      "devDependencies": {
->        "@babel/core": "^7.18.6",
->        "@babel/plugin-transform-modules-commonjs": "^7.18.6",
->        "clean-webpack-plugin": "^3.0.0",
->        "css-loader": "^3.6.0",
->        "eslint": "^8.18.0",
->        "eslint-webpack-plugin": "^2.7.0",
->        "file-loader": "^6.2.0",
->        "html-loader": "^1.3.2",
->        "html-webpack-plugin": "^4.5.2",
->        "jest": "^24.9.0",
->        "style-loader": "^1.3.0",
->        "webpack": "4.46.0",
->        "webpack-cli": "^3.3.12",
->        "webpack-dev-server": "3.11.3"
->    },
->  "dependencies": {
->    "bootstrap": "^5.2.3"
->  }
+- _`$ cd currency-api`_
+- _`$ touch .env`_
+- _Add API key to .env by adding this line to the file_ `API_KEY=<place your key here>`
 - to install dependencies: `$npm install`
 - to run application: `$npm run build`
 - to start in browser: `$npm start`
@@ -57,7 +39,6 @@ https://github.com/TessaHayden/currency-api
 
 #### Known Bugs:
 - This application does not accept currenct types not listed.
-- Does not compute negative numbers.
 
 <sub>MIT
 copyright (c) _2023_ _Tessa Hayden_

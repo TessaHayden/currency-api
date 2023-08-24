@@ -1,65 +1,32 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
+import CurrencyExchange from "./currency";
 
-function getExchangeRate(currency) {
-  let request = new XMLHttpRequest();
-  const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`;
-  request.addEventListener("loadend", function () {
-    const response = JSON.parse(this.responseText);
-    if (this.status === 200) {
-      printElements(response, currency);
-    }
-  });
-  request.open("GET", url, true);
-  request.send();
-}
 function printElements(response) {
   let input = document.querySelector("#currency-type").value.toUpperCase();
   let amount = parseInt(document.querySelector("#usd-amount").value);
-  if (input === "AOA") {
-    let abbreviation = response.conversion_rates.AOA;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
-  } else if (input === "AED") {
-    let abbreviation = response.conversion_rates.AED;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
-  } else if (input === "AFN") {
-    let abbreviation = response.conversion_rates.AFN;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from  $${amount} USD to ${input}: ${conversion}`;
-  } else if (input === "ALL") {
-    let abbreviation = response.conversion_rates.ALL;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
-  } else if (input === "AMD") {
-    let abbreviation = response.conversion_rates.AMD;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
-  } else if (input === "ANG") {
-    let abbreviation = response.conversion_rates.ANG;
-    let conversion = `${amount}` * abbreviation;
-    document.querySelector(
-      "#showResponse"
-    ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
-  }
+
+  let conversionRate = response.conversion_rates[`${input}`];
+  let conversion = `${amount}` * conversionRate;
+  document.querySelector(
+    "#showResponse"
+  ).innerText = `Here is the exchange rate from $${amount} USD to ${input}: ${conversion}`;
+}
+
+function printError(response) {
+  document.querySelector("#showResponse").innerText =
+    response.status + ", " + response["error_type"];
 }
 
 function handleFormSubmission(event) {
   event.preventDefault();
-  const currencyType = document.querySelector("#currency-type").value;
-  getExchangeRate(currencyType);
+  const APIResponse = CurrencyExchange.getCurrencyExchange();
+  APIResponse.then(function (succesfullResponse) {
+    printElements(succesfullResponse);
+  }).catch(function (error) {
+    printError(error);
+  });
 }
 
 window.addEventListener("load", function () {
